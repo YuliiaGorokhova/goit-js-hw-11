@@ -8,24 +8,28 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-
     <form class="search-form" id="search-form">
       <input
+        class="search-input"
         type="text"
         name="searchQuery"
         autocomplete="off"
         placeholder="Search images..."
       />
-      <button type="submit">Search</button>
-      <!-- <svg>
-        <use href="images/sprite.svg#icon-search"></use>
-      </svg> -->
+      <button class="search-button" type="submit">
+        <!--Search-->
+       <svg class="icon-search"><use href="./images/icon.svg#search"></use></svg>
+      </button>
     </form>
-    <div class="gallery">
-      <!-- Карточки изображений -->
+    <div class="container">
+      <div class="gallery">
+      <!-- Карточки изображений -->  
+      </div>
+      <button class="load-more is-hidden" type="button">Load more</button>
+      <p class="end-gallery is-hidden">
+      Sorry, but you've reached the end of search results.
+    </p>
     </div>
-    <button type="button" class="load-more">Load more</button>
-
     <script src="./index.js" type="module"></script>
-      </body>
+  </body>
 </html>
