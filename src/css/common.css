@@ -18,6 +18,10 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container {
   margin: 0 auto;
   margin-top: 110px;
@@ -44,7 +48,8 @@ ul {
   font-size: 16px;
   outline: none;
   border: none;
-  border-radius: 5px;
+  border-top-left-radius: 5;
+  border-bottom-left-radius: 5;
 }
 
 .search-input :placeholder {
@@ -54,36 +59,19 @@ ul {
 
 .search-button {
   min-width: 40px;
-  height: 50px;
+  height: 30px;
   border: #212121;
-  background: rgba(122, 122, 122, 0.674);
+  background: rgba(176, 174, 174, 0.674);
   border-top-right-radius: 5;
   border-bottom-right-radius: 5;
-  /* position: absolute; */
   right: 0;
   cursor: pointer;
-  /* &:hover,
-        &:focus {
-          background-color: #0f3443;
-          color: #ffffff;
-          
-        } */
 }
 
-/* .svg {
-        width: 15px;
-        height: 15px;
-        border-top-right-radius: 6;
-        border-bottom-left-radius: 6;
-      } */
-
-.icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+.search-button:hover,
+.search-button:focus {
+  background-color: #0f3443;
+  color: #ffffff;
 }
 
 .gallery {
@@ -92,7 +80,6 @@ ul {
   justify-content: center;
   gap: 10px;
   margin: 70px 20px 20px 20px;
-  
 }
 
 .info-item {
@@ -114,7 +101,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  
+
   height: 100%;
   border: 1px solid rgb(197, 194, 194);
   flex-basis: calc((100% - 6 * 15px) / 5);
@@ -137,30 +124,21 @@ a {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #3614dc;
-  transition: background-color 300ms linear, color 300ms linear;
-  /* &:hover,
-            &:focus {
-              background-color: #0f3443;
-              color: #ffffff;
-            } */
-
-  /* &.is-hidden {
-              display: none;
-            } */
+  background-color: cornflowerblue;
 }
 
-.load-more :focus,
-.load-more :hover {
-  background-color: #9191d6;
+.is-hidden {
+  display: none;
+}
+
+.load-more:focus,
+.load-more:hover {
+  background-color: #181884;
+  color: #ffffff;
 }
 
 .end-gallery {
   margin: 30px 0 30px 0;
   text-align: center;
   font-size: 20px;
-
-  /* &.is-hidden {
-              display: none;
-            } */
 }

@@ -2,7 +2,7 @@ import './css/common.css';
 import { fetchImages } from './js/fetchImages.js';
 import { cardDetailsMarkup } from './js/cardDetailsMarkup.js';
 import Notiflix from 'notiflix';
-import simpleLightbox from 'simplelightbox';
+import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const form = document.querySelector('#search-form');
@@ -13,7 +13,11 @@ const endSearch = document.querySelector('.end-gallery');
 loadMoreBtn.classList.add('is-hidden');
 endSearch.classList.add('is-hidden');
 
-let galleryImg = new simpleLightbox('.gallery a', { enableKeyboard: true });
+let galleryImg = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 gallery.innerHTML = '';
 let name = '';
@@ -24,23 +28,20 @@ let perPage = 40;
 form.addEventListener('submit', onSearchForm);
 loadMoreBtn.addEventListener('click', onMoreBtn);
 
-// onScroll();
-// onToTopBtn();
-
-function onSearchForm(event) {
+async function onSearchForm(event) {
   event.preventDefault();
-  window.scrollTo({ top: 0 });
-  page = 1;
   name = event.currentTarget.searchQuery.value.trim();
+  page = 1;
+  window.scrollTo({ top: 0 });
   gallery.innerHTML = '';
   loadMoreBtn.classList.add('is-hidden');
   endSearch.classList.add('is-hidden');
 
   if (name === '') {
-    return emptyName();
+    return;
   }
 
-  fetchImages(name, page, perPage)
+  await fetchImages(name, page, perPage)
     .then(data => {
       endSearch.classList.add('is-hidden');
       gallery.innerHTML = '';
@@ -49,7 +50,7 @@ function onSearchForm(event) {
         notFoundImages();
       } else {
         gallery.insertAdjacentHTML('beforeend', cardDetailsMarkup(data.hits));
-        imagesFound(data);
+        foundImages(data);
         galleryImg.refresh();
 
         if (data.totalHits > perPage) {
@@ -58,13 +59,10 @@ function onSearchForm(event) {
       }
     })
     .catch(error => console.log(error));
-  // .finally(() => {
-  //   form.reset();
-  // });
 }
+
 function onMoreBtn() {
   page += 1;
-  // galleryImg.destroy();
 
   fetchImages(name, page, perPage)
     .then(data => {
@@ -89,28 +87,19 @@ function onMoreBtn() {
     .catch(error => console.log(error));
 }
 
-function emptyName() {
-  Notiflix.Notify.failure(
-    'Sorry, there are no images matching your search query. Please try again.'
-  );
-}
-
 function notFoundImages() {
   Notiflix.Notify.failure(
     'Sorry, there are no images matching your search query. Please try again.'
   );
 }
 
-function imagesFound(data) {
+function foundImages(data) {
   Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
 }
 
 function endOfSearch() {
   Notiflix.Notify.info(
     `We're sorry, but you've reached the end of search results.`,
-    {
-      position: 'center-bottom',
-      width: '420px',
-    }
+    { position: 'center-bottom' }
   );
 }
